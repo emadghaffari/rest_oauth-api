@@ -43,7 +43,7 @@ func (s service) GetByID(id string) (*AccessToken, *errors.ResError) {
 	return access, nil
 }
 
-func (s service) Create(ac AccessToken) *errors.ResError  {
+func (s service) Create(ac AccessToken) *errors.ResError {
 	if err := ac.Validate(); err != nil {
 		return err
 	}
@@ -56,11 +56,11 @@ func (s service) Create(ac AccessToken) *errors.ResError  {
 	return nil
 }
 
-func (s service) Update(ac AccessToken) *errors.ResError  {
+func (s service) Update(ac AccessToken) *errors.ResError {
 	if err := ac.Validate(); err != nil {
 		return err
 	}
-	
+
 	err := s.Repository.Update(ac)
 	if err != nil {
 		return err
