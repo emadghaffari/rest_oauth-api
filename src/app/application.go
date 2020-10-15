@@ -14,11 +14,7 @@ var (
 
 // StartApplication func
 func StartApplication() {
-	sesstion, err := cassandra.GetSesstion()
-	if err != nil {
-		panic("cassandra connection lost")
-
-	}
+	sesstion := cassandra.GetSesstion()
 	defer sesstion.Close()
 	atService := accesstoken.NewService(db.NewRepository())
 	atHandler := http.NewHandler(atService)
