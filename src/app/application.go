@@ -3,8 +3,8 @@ package app
 import (
 	"github.com/emadghaffari/bookstore_oauth-api/src/clients/cassandra"
 	"github.com/emadghaffari/bookstore_oauth-api/src/domain/accesstoken"
-	"github.com/emadghaffari/bookstore_oauth-api/src/domain/repository/db"
 	"github.com/emadghaffari/bookstore_oauth-api/src/http"
+	"github.com/emadghaffari/bookstore_oauth-api/src/repository/db"
 	"github.com/gin-gonic/gin"
 )
 
