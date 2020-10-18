@@ -3,8 +3,8 @@ package http
 import (
 	"net/http"
 
-	"github.com/emadghaffari/bookstore_oauth-api/src/domain/accesstoken"
-	"github.com/emadghaffari/bookstore_uesrs-api/utils/errors"
+	"github.com/emadghaffari/rest_oauth-api/src/domain/accesstoken"
+	"github.com/emadghaffari/rest_uesrs-api/utils/errors"
 	"github.com/gin-gonic/gin"
 )
 

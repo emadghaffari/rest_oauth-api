@@ -3,7 +3,7 @@ package accesstoken
 import (
 	"strings"
 
-	"github.com/emadghaffari/bookstore_oauth-api/src/utils/errors"
+	"github.com/emadghaffari/rest_oauth-api/src/utils/errors"
 )
 
 // Repository interface for create a new repo for this service

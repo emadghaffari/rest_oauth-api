@@ -4,7 +4,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/emadghaffari/bookstore_oauth-api/src/utils/errors"
+	"github.com/emadghaffari/rest_oauth-api/src/utils/errors"
 )
 
 const expireTime = 24

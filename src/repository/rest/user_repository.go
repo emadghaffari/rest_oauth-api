@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"time"
 
-	"github.com/emadghaffari/bookstore_oauth-api/src/domain/users"
-	"github.com/emadghaffari/bookstore_oauth-api/src/utils/errors"
+	"github.com/emadghaffari/rest_oauth-api/src/domain/users"
+	"github.com/emadghaffari/rest_oauth-api/src/utils/errors"
 	"github.com/mercadolibre/golang-restclient/rest"
 )
 
