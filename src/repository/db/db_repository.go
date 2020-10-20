@@ -1,9 +1,9 @@
 package db
 
 import (
+	"github.com/emadghaffari/res_errors/errors"
 	"github.com/emadghaffari/rest_oauth-api/src/clients/cassandra"
 	"github.com/emadghaffari/rest_oauth-api/src/domain/accesstoken"
-	"github.com/emadghaffari/rest_oauth-api/src/utils/errors"
 	"github.com/gocql/gocql"
 )
 
@@ -20,14 +20,14 @@ func NewRepository() Repository {
 
 // Repository interface
 type Repository interface {
-	GetByID(string) (*accesstoken.AccessToken, *errors.ResError)
-	Create(accesstoken.AccessToken) *errors.ResError
-	Update(accesstoken.AccessToken) *errors.ResError
+	GetByID(string) (*accesstoken.AccessToken, errors.ResError)
+	Create(accesstoken.AccessToken) errors.ResError
+	Update(accesstoken.AccessToken) errors.ResError
 }
 
 type repository struct{}
 
-func (r repository) GetByID(id string) (*accesstoken.AccessToken, *errors.ResError) {
+func (r repository) GetByID(id string) (*accesstoken.AccessToken, errors.ResError) {
 
 	var result accesstoken.AccessToken
 	if err := cassandra.GetSesstion().Query(getAccessTokenQuery, id).Scan(&result.AccessToken, &result.UserID, &result.ClientID, &result.Expires); err != nil {
@@ -40,18 +40,18 @@ func (r repository) GetByID(id string) (*accesstoken.AccessToken, *errors.ResErr
 	return &result, nil
 }
 
-func (r repository) Create(ac accesstoken.AccessToken) *errors.ResError {
+func (r repository) Create(ac accesstoken.AccessToken) errors.ResError {
 
 	if err := cassandra.GetSesstion().Query(createAccesstokenQuery, ac.AccessToken, ac.UserID, ac.ClientID, ac.Expires).Exec(); err != nil {
-		return errors.HandlerInternalServerError("error in insert new accessToken to server")
+		return errors.HandlerInternalServerError("error in insert new accessToken to server", err)
 	}
 	return nil
 }
 
-func (r repository) Update(ac accesstoken.AccessToken) *errors.ResError {
+func (r repository) Update(ac accesstoken.AccessToken) errors.ResError {
 
 	if err := cassandra.GetSesstion().Query(updateAccesstokenExpires, ac.Expires, ac.AccessToken).Exec(); err != nil {
-		return errors.HandlerInternalServerError("error in insert new accessToken to server")
+		return errors.HandlerInternalServerError("error in insert new accessToken to server", err)
 	}
 	return nil
 }

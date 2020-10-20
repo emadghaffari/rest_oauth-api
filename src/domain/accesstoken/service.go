@@ -3,21 +3,21 @@ package accesstoken
 import (
 	"strings"
 
-	"github.com/emadghaffari/rest_oauth-api/src/utils/errors"
+	"github.com/emadghaffari/res_errors/errors"
 )
 
 // Repository interface for create a new repo for this service
 type Repository interface {
-	GetByID(string) (*AccessToken, *errors.ResError)
-	Create(AccessToken) *errors.ResError
-	Update(AccessToken) *errors.ResError
+	GetByID(string) (*AccessToken, errors.ResError)
+	Create(AccessToken) errors.ResError
+	Update(AccessToken) errors.ResError
 }
 
 // Service interface
 type Service interface {
-	GetByID(string) (*AccessToken, *errors.ResError)
-	Create(AccessToken) *errors.ResError
-	Update(AccessToken) *errors.ResError
+	GetByID(string) (*AccessToken, errors.ResError)
+	Create(AccessToken) errors.ResError
+	Update(AccessToken) errors.ResError
 }
 
 type service struct {
@@ -31,10 +31,10 @@ func NewService(repo Repository) Service {
 	}
 }
 
-func (s service) GetByID(id string) (*AccessToken, *errors.ResError) {
+func (s service) GetByID(id string) (*AccessToken, errors.ResError) {
 	id = strings.TrimSpace(id)
 	if len(id) == 0 {
-		return nil, errors.HandlerBagRequest("invalid access token")
+		return nil, errors.HandlerBadRequest("invalid access token")
 	}
 	access, err := s.Repository.GetByID(id)
 	if err != nil {
@@ -43,7 +43,7 @@ func (s service) GetByID(id string) (*AccessToken, *errors.ResError) {
 	return access, nil
 }
 
-func (s service) Create(ac AccessToken) *errors.ResError {
+func (s service) Create(ac AccessToken) errors.ResError {
 	if err := ac.Validate(); err != nil {
 		return err
 	}
@@ -56,7 +56,7 @@ func (s service) Create(ac AccessToken) *errors.ResError {
 	return nil
 }
 
-func (s service) Update(ac AccessToken) *errors.ResError {
+func (s service) Update(ac AccessToken) errors.ResError {
 	if err := ac.Validate(); err != nil {
 		return err
 	}

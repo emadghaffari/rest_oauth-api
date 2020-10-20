@@ -4,7 +4,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/emadghaffari/rest_oauth-api/src/utils/errors"
+	"github.com/emadghaffari/res_errors/errors"
 )
 
 const expireTime = 24
@@ -18,19 +18,19 @@ type AccessToken struct {
 }
 
 // Validate method
-func (at *AccessToken) Validate() *errors.ResError {
+func (at *AccessToken) Validate() errors.ResError {
 	at.AccessToken = strings.TrimSpace(at.AccessToken)
 	if at.AccessToken == "" {
-		return errors.HandlerBagRequest("invalid access token")
+		return errors.HandlerBadRequest("invalid access token")
 	}
 	if at.ClientID <= 0 {
-		return errors.HandlerBagRequest("invalid client id request")
+		return errors.HandlerBadRequest("invalid client id request")
 	}
 	if at.UserID <= 0 {
-		return errors.HandlerBagRequest("invalid user id request")
+		return errors.HandlerBadRequest("invalid user id request")
 	}
 	if at.Expires <= 0 {
-		return errors.HandlerBagRequest("invalid Expires request")
+		return errors.HandlerBadRequest("invalid Expires request")
 	}
 	return nil
 }
